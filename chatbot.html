@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      // component
+      function ChatInput() {
+        return (
+          <>
+            <input placeholder="Send a message to Chatbot" size="30" />
+            <button>Send</button>
+          </>
+        );
+      }
+
+      function ChatMessage({ message, sender }) {
+        // if (sender === "robot") {
+        //   return (
+        //     <div>
+        //       <img src="./images/chatbot-robot-avatar.png" width="50" />
+        //       {message}
+        //     </div>
+        //   );
+        // }
+
+        return (
+          <div>
+            {sender === "robot" && (
+              <img src="./images/chatbot-robot-avatar.png" width="50" />
+            )}
+            {message}
+            {sender === "user" && (
+              <img src="./images/chatbot-user-avatar.png" width="50" />
+            )}
+          </div>
+        );
+      }
+
+      function App() {
+        const ChatMessages = [
+          {
+            message: "hello chatbot",
+            sender: "user",
+          },
+          {
+            message: "Hello! How can I help you?",
+            sender: "robot",
+          },
+          {
+            message: "2 text",
+            sender: "user",
+          },
+          {
+            message: "2 answer",
+            sender: "robot",
+          },
+        ];
+
+        return (
+          <>
+            <ChatInput />
+            {[
+              {
+                message: "hello chatbot",
+                sender: "user",
+              },
+              {
+                message: "Hello! How can I help you?",
+                sender: "robot",
+              },
+              {
+                message: "2 text",
+                sender: "user",
+              },
+              {
+                message: "2 answer",
+                sender: "robot",
+              },
+            ].map((chatMessage) => (
+              <ChatMessage
+                key="chatMessage"
+                message={chatMessage.message}
+                sender={chatMessage.sender}
+              />
+            ))}
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

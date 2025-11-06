@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homeowrk 2</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+      function App() {
+        return (
+          <>
+            <button>Add to Card</button>
+          </>
+        );
+      }
+
+      function ProductDetails({ name, price, discountPrice, imageSrc }) {
+        return (
+          <>
+            <img src={imageSrc} width="50" />
+            <p>{name}</p>
+            {discountPrice ? <del>Price ${price}</del> : <p>Price ${price}</p>}
+            {discountPrice && <p>Discount price: ${discountPrice}</p>}
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(
+        <>
+          <div>
+            <ProductDetails
+              name="Cotton Socks"
+              price="10.90"
+              discountPrice="5.45"
+              imageSrc="./images/market-cotton-socks.png"
+            />
+            <button>Add to Card</button>
+          </div>
+          <div>
+            <ProductDetails
+              name="Tennise balls"
+              price="6"
+              imageSrc="./images/market-tennis-balls.png"
+            />
+            <button>Add to Card</button>
+          </div>
+          <div>
+            <ProductDetails
+              name="Plain T-shirt"
+              price="7.99"
+              imageSrc="./images/market-plain-t-shirt.png"
+            />
+            <button>Add to Card</button>
+          </div>
+        </>
+      );
+    </script>
+  </body>
+</html>
