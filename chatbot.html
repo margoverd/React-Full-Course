@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Chatbot</title>
+    <!--  нужно сделать так чтобы в начале появлялось наше сообщение вместе с загрузкой, а только потом сообщение бота -->
   </head>
   <body>
     <div class="js-container"></div>
@@ -9,25 +10,63 @@
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
       // component
-      function ChatInput() {
+      function ChatInput({ chatMessages, setChatMessages }) {
         const [inputText, setInputText] = React.useState("");
+        const [loading, setLoading] = React.useState(false);
 
         function saveInputText(event) {
           setInputText(event.target.value);
         }
 
-        function sendMessage() {
-          setChatMessages([
+        async function sendMessage() {
+          if (!inputText || loading) return;
+          setLoading(true);
+
+          const newChatMessages = [
             ...chatMessages,
             {
-              message: "test",
+              message: inputText,
               sender: "user",
               id: crypto.randomUUID(),
             },
+          ];
+          setChatMessages(newChatMessages);
+          setInputText("");
+
+          const loadingMessage = [
+            ...chatMessages,
+            {
+              message: "Loading...",
+              sender: "robot",
+              id: crypto.randomUUID(),
+            },
+          ];
+          setChatMessages(loadingMessage);
+
+          const response = await Chatbot.getResponseAsync(inputText);
+          setChatMessages([
+            ...newChatMessages,
+            {
+              message: `${response ? response : "Lodaing"}`,
+              sender: "robot",
+              id: crypto.randomUUID(),
+            },
           ]);
+
+          setLoading(false);
+        }
+
+        function keyDown(event) {
+          if (event.key == "Enter") {
+            sendMessage();
+          } else if (event.key == "Escape") {
+            setInputText("");
+          }
         }
 
         return (
@@ -36,8 +75,12 @@
               placeholder="Send a message to Chatbot"
               size="30"
               onChange={saveInputText}
+              value={inputText}
+              onKeyDown={keyDown}
             />
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={sendMessage} disabled={loading || !inputText}>
+              {loading ? "Loading..." : "Send"}
+            </button>
           </>
         );
       }
@@ -65,7 +108,7 @@
         );
       }
 
-      function ChatMessages() {
+      function ChatMessages({ chatMessages }) {
         return (
           <>
             {chatMessages.map((chatMessage, index) => (
@@ -104,8 +147,11 @@
 
         return (
           <>
-            <ChatInput />
-            <ChatMessages />
+            <ChatInput
+              chatMessages={chatMessages}
+              setChatMessages={setChatMessages}
+            />
+            <ChatMessages chatMessages={chatMessages} />
           </>
         );
       }
