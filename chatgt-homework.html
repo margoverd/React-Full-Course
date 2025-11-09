@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatGPT Homework</title>
+    <style>
+      .container {
+        padding: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [clicks, setClicks] = React.useState(0);
+
+        function incrementClicks() {
+          setClicks(clicks + 1);
+        }
+
+        function resetClicks() {
+          setClicks(0);
+        }
+
+        // Задание 2 — ввод текста
+        const [inputValue, setInputValue] = React.useState("");
+
+        function getInputValue(event) {
+          const text = event.target.value;
+          setInputValue(text);
+        }
+
+        // Задание 3 — счетчик с ограничением:
+
+        function incrementClicks2() {
+          if (clicks >= 0 && clicks < 10) {
+            setClicks(clicks + 1);
+          }
+        }
+        function decrementClicks2() {
+          if (clicks > 0 && clicks <= 10) {
+            setClicks(clicks - 1);
+          }
+        }
+
+        // Основы хранения массива в useState
+        // пользователь вводит текст
+        // я получаю этот текст из инпута
+        // добавляю этот текст в массив
+        // вывожу массив в строку дублируя его
+
+        const [inputText, setInputText] = React.useState("");
+        const [items, setItems] = React.useState([]);
+
+        function getInputText(event) {
+          setInputText(event.target.value);
+        }
+
+        function sendText() {
+          setItems([
+            ...items,
+            {
+              message: inputText,
+            },
+          ]);
+          setInputText("");
+        }
+
+        function Text() {
+          return (
+            <>
+              {items.map((item, index) => (
+                <p key={`item${index}`}>{item.message}</p>
+              ))}
+            </>
+          );
+        }
+
+        return (
+          <>
+            <div className="container">
+              <p>Задание 1 — простой счетчик</p>
+              <button onClick={incrementClicks}>Clicked {clicks} times</button>
+              <button onClick={resetClicks}>Reset</button>
+            </div>
+            <div className="container">
+              <p>Задание 2 — ввод текста</p>
+              <input placeholder="Write something" onChange={getInputValue} />
+              <p>{inputValue}</p>
+            </div>
+            <div className="container">
+              <p>Задание 3 — счетчик с ограничением</p>
+              <button onClick={incrementClicks2}>+</button>
+              <p>{clicks}</p>
+              <button onClick={decrementClicks2}>-</button>
+            </div>
+            <div className="container">
+              <input
+                placeholder="Write something"
+                onChange={getInputText}
+                value={inputText}
+              />
+              <button onClick={sendText}>Add</button>
+              <Text />
+            </div>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

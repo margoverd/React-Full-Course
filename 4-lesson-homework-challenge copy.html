@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>4 lesson Homework Challenge exercises</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [clicks, setClicks] = React.useState(0);
+        const [autoclickOn, setAutoclickOn] = React.useState(false);
+
+        React.useEffect(() => {
+          let intervalId;
+          if (autoclickOn === true) {
+            intervalId = setInterval(() => {
+              setClicks((prevClicks) => prevClicks + 1);
+            }, 1000);
+          }
+          return () => clearInterval(intervalId);
+        }, [autoclickOn]);
+
+        function increaseClicks() {
+          setClicks(clicks + 1);
+        }
+
+        function resetClicks() {
+          setClicks(0);
+        }
+
+        function autoClick() {
+          setAutoclickOn(!autoclickOn);
+        }
+
+
+        return (
+          <>
+            <button onClick={increaseClicks}>Clicked {clicks} times</button>
+            <button onClick={resetClicks}>Reset</button>
+            <button onClick={autoClick}>{`Auto Click ${
+              autoclickOn === true ? "ON" : ""
+            }`}</button>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

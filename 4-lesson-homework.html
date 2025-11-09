@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <style>
+      .switcher-btn {
+        background-color: rgb(25, 135, 84);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 10px 12px;
+        cursor: pointer;
+      }
+
+      .switcher-red-bg {
+        background-color: rgb(220, 53, 69);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [buttonOn, setButtonOn] = React.useState(false);
+
+        function handleClick() {
+          if (buttonOn) {
+            setButtonOn(false);
+          } else {
+            setButtonOn(true);
+          }
+        }
+
+        return (
+          <>
+            <button
+              className={`switcher-btn ${buttonOn ? "switcher-red-bg" : ""}`}
+              onClick={handleClick}
+            >
+              {buttonOn ? "OFF" : "ON"}
+            </button>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
