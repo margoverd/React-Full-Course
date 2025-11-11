@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <style>
+      .app__container {
+        max-width: 250px;
+      }
+      .app__input-container {
+        display: grid;
+        grid-template-columns: 1fr auto;
+      }
+      .tasks-list__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .tasks-list__item.completed::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      .tasks-list__item-text-container {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+      function App() {
+        // у нас есть поле и кнопка отправить
+        // пользователь вводит задачу и она отправляется в виде пункта с чекбоксом
+        // с права от чекбокса также есть кнопка крестик
+        // по нажатию на крестик этот элемент убирается из списка
+
+        // КОМПОНЕНТЫ
+        // пункт из списка задач, в котором будет текст из инпута, чекбокс и кнопка удалить
+        // сам список задач
+
+        const [task, setTask] = React.useState("");
+        const [tasksList, setTasksList] = React.useState([]);
+
+        // получаю значение из инпута
+        function getInputValue(event) {
+          setTask(event.target.value);
+        }
+
+        // добавляю значение из инпута в массив
+        function addTask() {
+          setTasksList([
+            ...tasksList,
+            {
+              task: task,
+            },
+          ]);
+          setTask("");
+        }
+
+        function TasksList() {
+          const [checkboxStatus, setCheckboxStatus] = React.useState(false);
+
+          function deleateTask(index) {
+            console.log(index);
+
+            // .filter проверяет каждый элемент массива и
+            // оставляет только те, которые проходят условие
+            const result = tasksList.filter((_, i) => i !== index);
+            setTasksList(result);
+          }
+
+          function trackCheckbox() {
+            setCheckboxStatus(!checkboxStatus);
+          }
+
+          return (
+            <>
+              {
+                // вывожу все эллементы объекта в параграф
+                tasksList.map((task, index) => (
+                  <div
+                    key={`task${index}`}
+                    className={`tasks-list__item ${
+                      checkboxStatus ? "completed" : ""
+                    }`}
+                  >
+                    <div className="tasks-list__item-text-container">
+                      <input type="checkbox" onClick={trackCheckbox} />
+                      <p>{task.task}</p>
+                    </div>
+                    <button onClick={() => deleateTask(index)}>X</button>
+                  </div>
+                ))
+              }
+            </>
+          );
+        }
+
+        function keyDownFunction(event) {
+          if (event.key === "Enter") {
+            addTask();
+          } else if (event.key === "Escape") {
+            setTask("");
+          }
+        }
+
+        return (
+          <div className="app__container">
+            <div className="app__input-container">
+              <input
+                placeholder="Add new task"
+                onChange={getInputValue}
+                value={task}
+                onKeyDown={keyDownFunction}
+              />
+              <button onClick={addTask}>Add</button>
+            </div>
+            <TasksList />
+          </div>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

@@ -75,11 +75,11 @@
 
         function Text() {
           return (
-            <>
+            <p>
               {items.map((item, index) => (
                 <p key={`item${index}`}>{item.message}</p>
               ))}
-            </>
+            </p>
           );
         }
 
