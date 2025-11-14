@@ -1,6 +1,6 @@
+import Header from "@/components/Header";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import Script from "next/script";
-import Image from "next/image";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,60 +39,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        <div className="header">
-          <div className="left-section">
-            <a href="index.html" className="header-link">
-              <Image
-                className="logo"
-                src="/images/logo-white.png"
-                alt="Logo"
-                width={177}
-                height={26}
-                priority
-              />
-
-              <Image
-                className="mobile-logo"
-                src="/images/mobile-logo-white.png"
-                alt="Mobile Logo"
-                width={22.53}
-                height={36}
-              />
-            </a>
-          </div>
-
-          <div className="middle-section">
-            <input className="search-bar" type="text" placeholder="Search" />
-
-            <button className="search-button">
-              <Image
-                className="search-icon"
-                src="/images/icons/search-icon.png"
-                alt="Search"
-                width={17.5}
-                height={20}
-              />
-            </button>
-          </div>
-
-          <div className="right-section">
-            <a className="orders-link header-link" href="orders.html">
-              <span className="orders-text">Orders</span>
-            </a>
-
-            <a className="cart-link header-link" href="checkout.html">
-              <Image
-                className="cart-icon"
-                src="/images/icons/cart-icon.png"
-                alt="Cart"
-                width={38}
-                height={33}
-              />
-              <div className="cart-quantity">3</div>
-              <div className="cart-text">Cart</div>
-            </a>
-          </div>
-        </div>
+        <Header />
 
         {children}
       </body>
