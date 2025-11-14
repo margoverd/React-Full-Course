@@ -1,9 +1,11 @@
+import Header from "@/components/Header";
 import Image from "next/image";
 import "./page.css";
 
 export default function Home() {
   return (
     <>
+      <Header />
       <div className="home-page">
         <div className="products-grid">
           <div className="product-container">

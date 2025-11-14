@@ -1,11 +1,12 @@
 "use client";
 import "./page.css";
 import ChatMessages from "@/components/ChatMessages";
+import Script from "next/script";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import { useState } from "react";
 
-export default function Chat() {
+export default function chat() {
   const [chatMessages, setChatMessages] = useState([
     {
       message: "hello chatbot",
@@ -29,12 +30,18 @@ export default function Chat() {
   // const setChatMessages = array[1];
 
   return (
-    <div className="chatbot-container">
-      <ChatMessages chatMessages={chatMessages} />
-      <ChatInput
-        chatMessages={chatMessages}
-        setChatMessages={setChatMessages}
+    <>
+      <Script
+        src="https://unpkg.com/supersimpledev/chatbot.js"
+        strategy="afterInteractive"
       />
-    </div>
+      <div className="chatbot-container">
+        <ChatMessages chatMessages={chatMessages} />
+        <ChatInput
+          chatMessages={chatMessages}
+          setChatMessages={setChatMessages}
+        />
+      </div>
+    </>
   );
 }

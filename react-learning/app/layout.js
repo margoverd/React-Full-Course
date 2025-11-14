@@ -34,13 +34,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
-        <Script
-          src="https://unpkg.com/supersimpledev/chatbot.js"
-          strategy="afterInteractive"
-        />
-
-        <Header />
-
         {children}
       </body>
     </html>
