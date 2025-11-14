@@ -1,7 +1,7 @@
 import "./page.css";
 import Image from "next/image";
 
-export default function ckeckout() {
+export default function Ckeckout() {
   return (
     <div className="checkout-page">
       <div className="page-title">Review your order</div>

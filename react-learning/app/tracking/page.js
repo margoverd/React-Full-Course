@@ -3,7 +3,7 @@ import "./page.css";
 import Image from "next/image";
 import Link from "next/link.js";
 
-export default function tracking() {
+export default function Tracking() {
   return (
     <>
       <Header />

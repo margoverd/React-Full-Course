@@ -6,7 +6,7 @@ import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import { useState } from "react";
 
-export default function chat() {
+export default function Chat() {
   const [chatMessages, setChatMessages] = useState([
     {
       message: "hello chatbot",
