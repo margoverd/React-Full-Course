@@ -1,6 +1,11 @@
 import "./page.css";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Checkout - My Shop",
+  description: "Complete your purchase here",
+};
+
 export default function Ckeckout() {
   return (
     <div className="checkout-page">

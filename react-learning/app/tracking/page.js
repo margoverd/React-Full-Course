@@ -3,6 +3,11 @@ import "./page.css";
 import Image from "next/image";
 import Link from "next/link.js";
 
+export const metadata = {
+  title: "Order Tracking - My Shop",
+  description: "Track your orders and delivery status",
+};
+
 export default function Tracking() {
   return (
     <>

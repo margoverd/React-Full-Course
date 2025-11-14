@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import "./page.css";
 
+export const metadata = {
+  title: "My Orders - My Shop",
+  description: "View all your orders and their status",
+};
+
 export default function Orders() {
   return (
     <>
