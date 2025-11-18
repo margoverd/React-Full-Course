@@ -11,11 +11,13 @@ export default function Home() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/products").then((response) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    axios.get(`${apiUrl}/api/products`).then((response) => {
       setProducts(response.data);
     });
 
-    axios.get("http://localhost:4000/api/cart-items").then((response) => {
+    axios.get(`${apiUrl}/api/cart-items`).then((response) => {
       setCart(response.data);
     });
   }, []);
