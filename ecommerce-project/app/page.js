@@ -1,14 +1,21 @@
+"use client";
+
 import axios from "axios";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Image from "next/image";
-import { products } from "@/lib/products";
 import "./page.css";
 
 export default function Home() {
-  axios.get("http://localhost:4000/api/products")
-    .then((response) => {
-      console.log(response.data);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/api/products").then((response) => {
+      setProducts(response.data);
     });
+  }, []);
+
+  console.log(products);
 
   return (
     <>
