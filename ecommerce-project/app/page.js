@@ -1,15 +1,13 @@
+import axios from "axios";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { products } from "@/lib/products";
 import "./page.css";
 
 export default function Home() {
-  fetch("http://localhost:4000/api/products")
+  axios.get("http://localhost:4000/api/products")
     .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
+      console.log(response.data);
     });
 
   return (
