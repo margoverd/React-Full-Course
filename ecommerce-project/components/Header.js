@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const Header = () => {
+const Header = ({ cart }) => {
+  let totalQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
+
   return (
     <div className="header">
       <div className="left-section">
@@ -52,7 +58,7 @@ const Header = () => {
             width={38}
             height={33}
           />
-          <div className="cart-quantity">3</div>
+          <div className="cart-quantity">{totalQuantity}</div>
           <div className="cart-text">Cart</div>
         </Link>
       </div>

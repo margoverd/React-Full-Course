@@ -8,10 +8,15 @@ import "./page.css";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:4000/api/products").then((response) => {
       setProducts(response.data);
+    });
+
+    axios.get("http://localhost:4000/api/cart-items").then((response) => {
+      setCart(response.data);
     });
   }, []);
 
@@ -19,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header cart={cart} />
       <div className="home-page">
         <div className="products-grid">
           {products.map((product, index) => (
