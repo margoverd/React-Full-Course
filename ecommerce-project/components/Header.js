@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/components/CartProvider";
 
-const Header = ({ cart }) => {
+const Header = () => {
+  const { cart } = useCart();
+
   let totalQuantity = 0;
 
   cart.forEach((cartItem) => {

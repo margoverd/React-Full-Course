@@ -6,9 +6,9 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import "./page.css";
 
-export default function Home() {
+export default function Home({ cart }) {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -17,9 +17,9 @@ export default function Home() {
       setProducts(response.data);
     });
 
-    axios.get(`${apiUrl}/api/cart-items`).then((response) => {
-      setCart(response.data);
-    });
+    // axios.get(`${apiUrl}/api/cart-items`).then((response) => {
+    //   setCart(response.data);
+    // });
   }, []);
 
   console.log(products);
